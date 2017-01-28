@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Hello VueJs</title>
+	<link rel="stylesheet" href="main.css">	
+</head>
+<body>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>  
+
+	<div id='app'>
+		<h1 :class={'rotating':loading}>C</h1>
+		<button @click='fetchSomething' :disabled='loading'>Fetch</button>
+	</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				loading: false
+			},
+			methods: {
+				fetchSomething(e) {
+					this.loading = true;
+					setTimeout(()=>{this.loading=false}, 4000);
+				}
+			}
+		})
+	</script>
+
+</body>
+</html>

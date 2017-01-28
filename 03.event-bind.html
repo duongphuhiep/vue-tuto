@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Hello VueJs</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>  
+
+	<div id='app'>
+		<ul>
+			<!-- 
+			We learn here:
+			- '@' is shorthand for 'v-on:'
+			- ':' is shorthand for 'v-bind:' 
+			-->
+			<input id='animalEdit' @keypress='addAnimal' type="text" v-model='pendingAnimal' :title="pendingAnimal" />
+
+			<li v-for='a in animals'>{{a}}</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				pendingAnimal: '',
+				animals: ['cat', 'dog', 'tiger']
+			},
+			methods: {
+				addAnimal(e) {
+					if (e.key==='Enter') {
+						this.animals.push(this.pendingAnimal);
+						this.pendingAnimal='';
+					}
+				}
+			}
+		})
+	</script>
+
+
+</body>
+</html>
