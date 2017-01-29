@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue components sample</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script> 	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+</head>
+<body>
+
+	<div id ='sample-one'>
+		<message title='Hello World 1'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</message>
+		<message title='Hello World 2'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</message>
+		<message title='Hello World 3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</message>
+	</div>
+
+	<script>
+		Vue.component('message', {
+			template: `
+			<article class="message" v-if='visible'>
+				<div class="message-header">
+					<p>{{ title }}</p>
+					<span class="icon is-small" @click='toogleContentVisible'>
+						<i :class='icon'></i>
+					</span>
+					<button class="delete" @click='visible=false'></button>
+				</div>
+				<div class="message-body" v-if='contentVisible'>
+					<slot></slot>
+				</div>
+			</article>
+			`,
+			props: ['title'],
+			data() {
+				return {
+					visible: true,
+					contentVisible: true
+				}
+			},
+			computed: {
+				icon() {
+					return this.contentVisible ? 'fa fa-chevron-up' : 'fa fa-chevron-down';
+				}
+			},
+			methods: {
+				toogleContentVisible() {
+					this.contentVisible = !this.contentVisible;
+				}
+			}
+		}) 
+
+		new Vue({
+			el: '#sample-one'
+		});
+	</script>
+
+</body>
+</html>
