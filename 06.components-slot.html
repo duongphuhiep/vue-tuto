@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue components content distribution with slot</title>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script> 	
+</head>
+<body>
+
+	<h1>Simple slot</h1>
+
+	<div id='sample1'>
+		<div class='parent'>
+			<child-one>Parent context</child-one>
+			<child-one></child-one>
+		</div>
+	</div>
+	<script>
+		Vue.component('child-one', {
+			template:`
+			<div>
+				Render in child: <slot>Fallback content</slot>
+			</div>
+			`}
+			);
+		new Vue({
+			el:'#sample1'
+		});
+	</script>
+
+	<hr />
+
+	<h1>Named slot</h1>
+
+	<div id='sample2'>	
+		<app-layout class='parent'>
+			<template slot='header'>LemonWay</template>
+			<span class='.someclass' slot='footer'>support@lemonway.com</span>
+			<p>This is the introduction of <b>vuejs</b>. You can try to remove all the content here in this &lt;app-layout&gt; tag to see the fallback content</p>
+		</app-layout>
+	</div>
+	<script>
+		Vue.component('app-layout', {
+			template:`
+			<div>
+				<h2><slot name='header'>Your company</slot></h2>
+				<slot>Main content here</slot>
+				<h2><slot name='footer'>Contact information</slot></h2>
+			</div>
+			`
+		});
+
+		new Vue({
+			el: "#sample2"
+		});
+	</script>
+
+	<hr />
+	
+	<h1>Scoped slot</h1>
+
+	Distribute content from children to parent. 
+	<ul>
+		<li>Normally, parent can only "configure" the children by
+			<ul>
+				<li>setting children properties</li>
+				<li>and putting the "slot" contents.</li>
+			</ul>
+		</li>
+		<li>
+			The scoped slot allows parent to configure the look of the children.
+			children data can appeared in the slot content
+		</li>
+	</ul>
+
+	<div id='sample3'>
+		<child-two>
+			<template slot='king' scope='p'>
+				<b>{{p.kind}}</b>,
+			</template>
+			<template slot='others' scope='p'>
+				<li>{{p.kind}}</li>
+			</template>
+		</child-two>
+	</div>
+	
+	<script>
+		Vue.component('child-two', {
+			template:`
+			<div>
+				<p>King are:</p>
+				<slot name='king' kind='Tiger'></slot>
+				<slot name='king' kind='Elephant'></slot>
+
+				<p>Other animals:</p>
+				<ul>
+					<slot name='others' v-for='a in animals' :kind='a'></slot>
+				</ul>
+			</div>
+			`,
+			data() {
+				return {'animals' : ['ant', 'buffalo', 'crocodile', 'dophin', 'eagle', 'fish', 'gorilla']};
+			}
+		});
+		new Vue({
+			el: "#sample3"
+		});
+		
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Hello VueJs</title>
+	<link rel="stylesheet" href="main.css">	
+</head>
+<body>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>  
+
+	<div id='app'>
+		<div>
+			<h1>Here a computed property</h1>
+			{{ reversedMessage }}
+			<h1>The full list</h1>
+			<ul>
+				<li v-for='a in animals'>{{a}}</li>
+			</ul>
+			<h1>An ugly filter</h1>
+			<ul>
+				<li v-for='a in animals' v-if="a.includes('o')">{{a}}</li>
+			</ul>
+			<h1>A more elegant filter</h1>
+			<ul>
+				<li v-for='a in animalsWithLetterO'>{{a}}</li>
+			</ul>
+
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				message: "Hello world",
+				animals: ["abraca", "buffalo", "crocodile", "dophin", "elephan"]
+			},
+			computed: {
+				reversedMessage() {
+					return this.message.split('').reverse().join('');
+				},
+				animalsWithLetterO() {
+					return this.animals.filter((a) => a.includes('o'));
+				}
+			}
+		});
+		// to change the first value: 
+			// 	- app.animals[0] = "kaola" w'ont work
+			// 	- app.animals.splice(0,1,"kaola")
+		</script>
+
+	</body>
+	</html>

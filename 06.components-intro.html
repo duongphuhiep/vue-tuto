@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue components</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	
+	<div id='root'>
+		<task-list></task-list>
+	</div>
+
+
+	<script src="https://unpkg.com/vue/dist/vue.js"></script> 
+	<script>
+		Vue.component('task-list', {
+			template:`
+			<ol>
+				<task v-for='t in tasks' :done='t.done'>{{t.name}}</task>
+			</ol>
+			`,
+			data() {
+				return {tasks: [
+					{name: "Buy newspaper", done: false},
+					{name: "Try reactjs", done: true},
+					{name: "Read vuejs cast", done: false},
+					{name: "Do the mobx example", done: true},
+					{name: "Make some tutorial", done: false}
+					]};
+				}
+			});
+
+		Vue.component('task', {
+			template: `
+			<li><input type='checkbox' :checked='done' /><slot></slot></li>
+			`,
+			props: ['done']
+		});
+
+		new Vue({
+			el: "#root"
+		});
+	</script>
+</body>
+</html>
