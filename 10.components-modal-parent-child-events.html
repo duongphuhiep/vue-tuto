@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Hello VueJs</title>
+	<link rel="stylesheet" href="main.css">	
+	<script src="//unpkg.com/vue/dist/vue.js"></script>  
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.min.css">
+</head>
+<body>
+	<div id='app'>
+		<button @click="isModalVisible=true">Show Modal</button>
+		<modal @close="isModalVisible=false" v-if="isModalVisible">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</modal>
+	</div>
+	<script>
+		new Vue({
+			el: '#app',
+			//local component which is only available for this specify Vue instance
+			components: {
+				'modal': {
+					template: `
+					<div class="modal is-active">
+						<div class="modal-background"></div>
+						<div class="modal-content">
+							<slot></slot>
+						</div>
+						<button class="modal-close" @click='$emit("close")'></button>
+					</div>
+					`
+				}
+			},
+			data: {
+				isModalVisible: false
+			}
+		});
+	</script>
+</body>
+</html>
