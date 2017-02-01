@@ -266,3 +266,10 @@ Session.vim
 tags
 
 # End of https://www.gitignore.io/api/sublimetext,visualstudiocode,node,webstorm,phpstorm,linux,macos,windows,jspm,bower,vim
+
+
+dist/
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+
